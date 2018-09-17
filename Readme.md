@@ -1,3 +1,28 @@
+アドバタイズパケットで
+https://qiita.com/komde/items/7209b36159da69ae79d2
+
+測定間隔は最小１秒にする
+3010->3011
+01 00
+（オリジナル　2c 01）
+
+3040->3042
+広告間隔（最小0.5）やデータの指定など
+１ ２  ３ ４  ５ ６  ７ ８  ９ ０
+20 03  A0 00  00 0A  00 32  02 00   
+（オリジナル　08 08  A0 00  00 0A  00 32  08 00）
+
+
+nodeでのサンプル
+https://qiita.com/bathtimefish/items/87ca27e715c4e24f0334#_reference-5d1e6572de07edc7b727
+
+オムロンのマニュアル
+https://omronfs.omron.com/ja_JP/ecb/products/pdf/CDSC-015.pdf
+https://omronmicrodevices.github.io/products/2jcie-bl01/communication_if_manual.html
+
+
+---
+
 # omron-env-sensor-raspi-noble-example
 
 A sample to get [Omron environment sensor 2JCIE-BL01](https://omronmicrodevices.github.io/products/2jcie-bl01/communication_if_manual.html) data using Raspberry Pi + noble
