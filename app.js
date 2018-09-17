@@ -1,15 +1,10 @@
 'use strict';
 
 const noble = require('noble');
-const OmronEnv = require('./omron-env-sensor');
 
-//const NAME = 'EP';
 const NAME = 'IM';
-//const ADDRESS = 'E7E6A420BDCF';
 const ADDRESS = 'e7e6a420bdcf';
 const INTERVAL_MILLISEC = 1000;
-
-const sensor = new OmronEnv();
 
 //discovered BLE device
 const discovered = (peripheral) => {
@@ -18,10 +13,18 @@ const discovered = (peripheral) => {
     uuid: peripheral.uuid,
     rssi: peripheral.rssi
   };
-  const d = new Date();
   if(NAME === device.name && ADDRESS === device.uuid) {
-    const envData = sensor.parse(peripheral.advertisement.manufacturerData.toString('hex'));
-    console.log(JSON.stringify(envData));
+    const v = peripheral.advertisement.manufacturerData.toString('hex').substring(30, 34);
+    var s = v.substring(2,4) + v.substring(0,2);
+    var d = parseInt(s, 16) * 360 / 65535 - 180;
+    console.log(d);
+    if (d > 0) {
+      d = (d - 180) * 180 / (-55);
+    } else {
+      d = (d + 125) * 90 / (-55);
+    }
+    console.log(d);
+    console.log('');
   }
 }
 
