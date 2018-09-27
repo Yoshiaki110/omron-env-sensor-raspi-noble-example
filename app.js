@@ -7,7 +7,7 @@ const ADDRESS = 'e7e6a420bdcf';
 const INTERVAL_MILLISEC = 100;
 
 //discovered BLE device
-const discovered = (peripheral) => {
+function discovered(peripheral) {
   const device = {
     name: peripheral.advertisement.localName,
     uuid: peripheral.uuid,
@@ -35,13 +35,18 @@ const discovered = (peripheral) => {
 }
 
 //BLE scan start
-const scanStart = () => {
+function scanStart() {
   setInterval(() => { noble.startScanning(); }, INTERVAL_MILLISEC);
   noble.on('discover', discovered);
 }
 
-if (noble.state === 'poweredOn'){
-  scanStart();
-} else {
-  noble.on('stateChange', scanStart);
+function setupSensor() {
+  if (noble.state === 'poweredOn'){
+    scanStart();
+  } else {
+    noble.on('stateChange', scanStart);
+  }
 }
+
+setupSensor();
+
